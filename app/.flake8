@@ -2,6 +2,7 @@
 exclude =
     __pycache__,
     migrations,
+    
     manage.py,
     settings.py
 
