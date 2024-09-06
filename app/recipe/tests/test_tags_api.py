@@ -14,12 +14,12 @@ from core.models import Tag
 from recipe.serializers import TagSerializer
 
 
-TAGS_URL = reverse("recipe:tag-list")
+TAGS_URL = reverse('recipe:tag-list')
 
 
-def create_user(email="test@example.com", password="testpass123"):
+def create_user(email="test1@example.com", password="testpass123"):
     """Create and return a user"""
-    return get_user_model().objects.create_user(email, password)
+    return get_user_model().objects.create_user(email=email, password=password)
 
 
 class PublicTagsApiTests(TestCase):
@@ -45,8 +45,8 @@ class PrivateTagsApiTests(TestCase):
 
     def test_retrieve_tags(self):
         """Test retrieving tags"""
-        Tag.objects.create(user=self.user, name="Vegan")
-        Tag.objects.create(user=self.user, name="Desert")
+        Tag.objects.create(user=self.user, name='Vegan')
+        Tag.objects.create(user=self.user, name='Desert')
 
         res = self.client.get(TAGS_URL)
 
@@ -65,5 +65,5 @@ class PrivateTagsApiTests(TestCase):
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(len(res.data), 1)
-        self.assertEqual(res.data[0]["name"], tag.name)
-        self.assertEqual(res.data[0]["id"], tag.id)
+        self.assertEqual(res.data[0]['name'], tag.name)
+        self.assertEqual(res.data[0]['id'], tag.id)
